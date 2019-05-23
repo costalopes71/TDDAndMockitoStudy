@@ -1,4 +1,4 @@
-package com.bigbox.b2site.common;
+package com.bigbox.b2csite.common;
 
 public class ServiceException extends Exception {
 

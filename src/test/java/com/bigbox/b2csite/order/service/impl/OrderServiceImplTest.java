@@ -12,13 +12,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import com.bigbox.b2csite.common.DataAccessException;
+import com.bigbox.b2csite.common.ServiceException;
+import com.bigbox.b2csite.order.dao.OrderDao;
 import com.bigbox.b2csite.order.model.domain.OrderSummary;
 import com.bigbox.b2csite.order.model.entity.OrderEntity;
 import com.bigbox.b2csite.order.model.transformer.OrderEntityToOrderSummaryTransformer;
-import com.bigbox.b2site.common.DataAccessException;
-import com.bigbox.b2site.common.ServiceException;
-import com.bigbox.b2site.order.dao.OrderDao;
-import com.bigbox.b2site.order.service.impl.OrderServiceImpl;
+import com.bigbox.b2csite.order.service.impl.OrderServiceImpl;
 
 public class OrderServiceImplTest {
 

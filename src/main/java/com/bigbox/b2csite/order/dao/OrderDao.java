@@ -1,9 +1,9 @@
-package com.bigbox.b2site.order.dao;
+package com.bigbox.b2csite.order.dao;
 
 import java.util.List;
 
+import com.bigbox.b2csite.common.DataAccessException;
 import com.bigbox.b2csite.order.model.entity.OrderEntity;
-import com.bigbox.b2site.common.DataAccessException;
 
 public interface OrderDao {
 

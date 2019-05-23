@@ -1,9 +1,9 @@
-package com.bigbox.b2site.order.service;
+package com.bigbox.b2csite.order.service;
 
 import java.util.List;
 
+import com.bigbox.b2csite.common.ServiceException;
 import com.bigbox.b2csite.order.model.domain.OrderSummary;
-import com.bigbox.b2site.common.ServiceException;
 
 public interface OrderService {
 
