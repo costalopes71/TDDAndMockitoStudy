@@ -14,16 +14,16 @@ public class OrderItemEntity {
 	@Id
 	private long id;
 
-	@Column(nullable=false)
+	@Column
 	private String sku;
 
-	@Column(nullable=false)
+	@Column
 	private int quantity;
 
-	@Column(nullable=false)
+	@Column
 	private BigDecimal sellingPrice;
 
-	@Column(nullable=false)
+	@Column
 	private Date addedToOrderDateTime;
 
 	@ManyToOne

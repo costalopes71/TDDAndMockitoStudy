@@ -74,7 +74,7 @@ public class OrderServiceImplTest {
 		
 		// setup
 		
-		Mockito.when(mockOrderDao.insert(Mockito.any(OrderEntity.class)))
+		Mockito.when(mockOrderDao.insertReturningInt(Mockito.any(OrderEntity.class)))
 			.thenThrow(new DataAccessException("first exception"))
 			.thenReturn(1);
 		
@@ -84,7 +84,7 @@ public class OrderServiceImplTest {
 		
 		// verification
 		
-		Mockito.verify(mockOrderDao, Mockito.times(2)).insert(Mockito.any(OrderEntity.class));
+		Mockito.verify(mockOrderDao, Mockito.times(2)).insertReturningInt(Mockito.any(OrderEntity.class));
 		
 	}
 	
@@ -104,7 +104,7 @@ public class OrderServiceImplTest {
 			
 		} finally {
 			
-			Mockito.verify(mockOrderDao, Mockito.times(2)).insert(Mockito.any(OrderEntity.class));
+			Mockito.verify(mockOrderDao, Mockito.times(2)).insertReturningInt(Mockito.any(OrderEntity.class));
 			
 		}
 		
@@ -115,7 +115,7 @@ public class OrderServiceImplTest {
 		
 		// setup
 		
-		Mockito.when(mockOrderDao.insert(Mockito.any()))
+		Mockito.when(mockOrderDao.insertReturningInt(Mockito.any()))
 			.thenReturn(1);
 
 		// execution
@@ -126,7 +126,7 @@ public class OrderServiceImplTest {
 		
 		ArgumentCaptor<OrderEntity> orderEntityCaptor = ArgumentCaptor.forClass(OrderEntity.class);
 		
-		Mockito.verify(mockOrderDao).insert(orderEntityCaptor.capture());
+		Mockito.verify(mockOrderDao).insertReturningInt(orderEntityCaptor.capture());
 		
 		OrderEntity capturedOrderEntity = orderEntityCaptor.getValue();
 		

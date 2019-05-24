@@ -29,7 +29,6 @@ import com.bigbox.b2csite.order.model.transformer.OrderEntityToOrderSummaryTrans
 @PrepareForTest(value= {WarehouseManagementService.class, OrderServiceImpl.class})
 public class OrderServiceImplTestWithPowerMock {
 
-	private final static long CUSTOMER_ID = 1;
 	private final static long ORDER_ID = 2L;
 	private final static String ORDER_NUMBER = "1234";
 	

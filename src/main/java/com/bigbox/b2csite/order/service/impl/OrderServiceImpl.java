@@ -69,7 +69,7 @@ public class OrderServiceImpl implements OrderService {
 			
 			try {
 				
-				int resultValue = orderDao.insert(newOrderEntity);
+				int resultValue = orderDao.insertReturningInt(newOrderEntity);
 				if (resultValue == 1) {
 					insertSuccessful = true;
 				} else {
