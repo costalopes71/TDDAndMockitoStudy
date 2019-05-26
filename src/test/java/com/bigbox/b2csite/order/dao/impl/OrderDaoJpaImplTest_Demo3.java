@@ -1,46 +1,21 @@
 package com.bigbox.b2csite.order.dao.impl;
 
-import java.io.FileReader;
+import static org.junit.Assert.assertEquals;
+
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 
-import org.dbunit.Assertion;
-import org.dbunit.IDatabaseTester;
-import org.dbunit.JdbcDatabaseTester;
-import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.database.QueryDataSet;
-import org.dbunit.dataset.Column;
-import org.dbunit.dataset.Column.Nullable;
 import org.dbunit.dataset.DataSetException;
-import org.dbunit.dataset.DefaultDataSet;
-import org.dbunit.dataset.DefaultTable;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
-import org.dbunit.dataset.ITableMetaData;
-import org.dbunit.dataset.datatype.DataType;
-import org.dbunit.dataset.excel.XlsDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.dbunit.dataset.xml.XmlDataSet;
 import org.dbunit.operation.DatabaseOperation;
-import org.h2.Driver;
-import org.h2.tools.RunScript;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.bigbox.b2csite.order.model.entity.OrderEntity;
@@ -49,10 +24,12 @@ import com.bigbox.b2csite.order.model.entity.OrderItemEntity;
 public class OrderDaoJpaImplTest_Demo3 extends BaseDBUnitTestForJPADao {
 	
 	private final static class DataFiles {
+		@SuppressWarnings("unused")
 		private final static String XML_DATA_SET = 
 				"com/bigbox/b2csite/order/dao/impl/OrderDaoJpaImplTest_XMLDataSet.xml";
 		private final static String FLAT_XML_DATA_SET = 
 				"com/bigbox/b2csite/order/dao/impl/OrderDaoJpaImplTest_FlatXMLDataSet.xml";
+		@SuppressWarnings("unused")
 		private final static String XLS_DATA_SET = 
 				"com/bigbox/b2csite/order/dao/impl/OrderDaoJpaImplTest_XlsDataSet.xls";
 	}
@@ -82,9 +59,32 @@ public class OrderDaoJpaImplTest_Demo3 extends BaseDBUnitTestForJPADao {
 	}
 	
 	@Test
-	@Ignore
-	public void test_insert() throws Exception {
+	public void testInsert() throws Exception {
 		
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
+		
+		OrderEntity orderEntityFixture = entityManager.find(OrderEntity.class, Long.valueOf(1));
+		OrderItemEntity itemFixture = new OrderItemEntity();
+		itemFixture.setOwningOrder(orderEntityFixture);
+		itemFixture.setQuantity(2);
+		itemFixture.setSellingPrice(new BigDecimal("10.00"));
+		itemFixture.setSku("Item1SKU");
+		
+		entityManager.persist(itemFixture);
+		transaction.commit();
+		
+		QueryDataSet queryDataSet = new QueryDataSet(CONN);
+		String queryString = "SELECT * FROM OrderItemEntity WHERE owningOrder_Id = 1";
+		queryDataSet.addTable("OrderItemEntity", queryString);
+		
+		DatabaseOperation.REFRESH.execute(CONN, queryDataSet);
+		
+		ITable orderItemTable = queryDataSet.getTable("OrderItemEntity");
+		assertEquals(1, orderItemTable.getRowCount());
+		assertOrderItemTable(itemFixture, orderItemTable, 0);
+		
+		DatabaseOperation.DELETE.execute(CONN, queryDataSet);
 		
 	}
 	

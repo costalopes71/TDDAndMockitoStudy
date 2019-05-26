@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import com.bigbox.b2csite.order.model.entity.OrderEntity;
 
-public class OrderDaoJpaImplTest_Demo1 extends BaseDBUnitTestForJPADao {
+public class OrderDaoJpaImplTestDemo1 extends BaseDBUnitTestForJPADao {
 
 	private OrderDaoJpaImpl target = null;
 	
@@ -55,7 +55,7 @@ public class OrderDaoJpaImplTest_Demo1 extends BaseDBUnitTestForJPADao {
 	}
 	
 	@Test
-	public void test_findByOrderSource() throws Exception {
+	public void testFindByOrderSource() throws Exception {
 		
 		// Setup
 		
